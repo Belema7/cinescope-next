@@ -9,7 +9,7 @@ const Header = () => {
         {/* left side */}
         <div className="font-bold text-2xl">
             <Link href="/">CineScope</Link>
-        </div>
+        </div> 
 
         {/* right side */}
         <div className='flex items-center gap-10'>
