@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Providers from './Providers'
 import Navbar from '@/components/Navbar'
+import SearchBox from '@/components/SearchBox'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,7 +29,13 @@ export default function RootLayout({ children }) {
       >
         <Providers>
           <Header />
+          <div className='flex justify-around'>
+            <div>
           <Navbar/>
+
+            </div>
+          <SearchBox/>
+          </div>
           {children}
         </Providers>
       </body>
