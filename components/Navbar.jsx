@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import NavbarItem from './NavbarItem'
 
 const Navbar = () => {
@@ -9,8 +9,10 @@ const Navbar = () => {
                       bg-secondary/50 backdrop-blur-md 
                       border border-border/40 
                       shadow-sm">
-        <NavbarItem title="Trending" param="fetchTrending" />
-        <NavbarItem title="Top Rated" param="fetchTopRated" />
+        <Suspense fallback={<div>Loading...</div>}>
+          <NavbarItem title="Trending" param="fetchTrending" />
+          <NavbarItem title="Top Rated" param="fetchTopRated" />
+        </Suspense>
       </div>
     </div>
   )
