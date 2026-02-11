@@ -29,14 +29,13 @@ export default function RootLayout({ children }) {
       >
         <Providers>
           <Header />
-          <div className='flex justify-around'>
-            <div>
-          <Navbar/>
-
+          <Navbar />
+          <main className="min-h-screen">
+            <div className="max-w-6xl mx-auto px-4 py-6">
+              <SearchBox />
             </div>
-          <SearchBox/>
-          </div>
-          {children}
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

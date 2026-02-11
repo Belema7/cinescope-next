@@ -1,42 +1,45 @@
 import Image from 'next/image'
 import React from 'react'
+import { fetchFromTMDB } from '@/lib/api'
 
 const MoviePage = async ({ params }) => {
-  const movieId = params.id
+  const { id } = await params;
 
-  const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`,
-    { cache: 'no-store' }
-  )
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch movie details')
+  let movie;
+  try {
+    movie = await fetchFromTMDB(`movie/${id}`);
+  } catch (error) {
+    throw new Error('Failed to fetch movie details');
   }
 
-  const movie = await res.json()
-
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10 space-y-6">
-      
-      <div className="relative w-full h-[400px] rounded-2xl overflow-hidden">
+    <div className="w-full">
+      <div className="p-4 md:pt-8 flex flex-col md:flex-row content-center max-w-6xl mx-auto md:space-x-6">
         <Image
-          src={`https://image.tmdb.org/t/p/original/${
-            movie.backdrop_path || movie.poster_path
-          }`}
-          alt={movie.title}
-          fill
-          sizes="100vw"
-          className="object-cover"
+          src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path || movie.poster_path}`}
+          alt={movie.title || movie.name}
+          width={500}
+          height={300}
+          className="rounded-lg"
+          style={{ maxWidth: '100%', height: '100%' }}
         />
+        <div className="p-2">
+          <h2 className="text-lg mb-3 font-bold">
+            {movie.title || movie.name}
+          </h2>
+          <p className="text-lg mb-3">{movie.overview}</p>
+          <p className="mb-3">
+            <span className="font-semibold mr-1">Date Released:</span>
+            {movie.release_date || movie.first_air_date}
+          </p>
+          <p className="mb-3">
+            <span className="font-semibold mr-1">Rating:</span>
+            {movie.vote_count}
+          </p>
+        </div>
       </div>
-
-      <h1 className="text-3xl font-bold">{movie.title}</h1>
-
-      <p className="text-foreground/80 leading-relaxed">
-        {movie.overview}
-      </p>
     </div>
-  )
+  );
 }
 
 export default MoviePage
