@@ -16,7 +16,7 @@ const Home = async ({ searchParams }) => {
     }?api_key=${API_KEY}&language=en-US&page=1`
   )
 
-  if (!res.ok) {
+  if (!res.ok) { 
     throw new Error('Failed to fetch movies')
   }
 
