@@ -1,13 +1,11 @@
 import React from 'react'
+import Card from './Card'
 
 const Results = ({results}) => {
   return (
-    <div>
+    <div className='grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 max-w-6xl mx-auto gap-4 py-4'>
         {results.map((result) => (
-            <div key={result.id} className="p-4 border-b border-border/40">
-                <h2 className="text-lg font-semibold">{result.title || result.name}</h2>
-                <p className="text-sm text-foreground/80">{result.overview}</p>
-            </div>
+            <Card key={result.id} result={result} />
         ))}
     </div>
   )
